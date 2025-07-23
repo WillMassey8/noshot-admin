@@ -10,20 +10,12 @@ const Index = () => {
       {/* Header */}
       <div className="border-b border-divider bg-section-bg">
         <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <img 
-                src="/lovable-uploads/fc3944e2-6346-4b26-bac8-b0c8c5e2d63a.png" 
-                alt="NoShot Logo" 
-                className="h-12 w-auto"
-              />
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-stat-small">Last updated</p>
-              <p className="text-sm font-medium text-foreground">
-                {new Date().toLocaleString()}
-              </p>
-            </div>
+          <div className="flex justify-center">
+            <img 
+              src="/lovable-uploads/fc3944e2-6346-4b26-bac8-b0c8c5e2d63a.png" 
+              alt="NoShot Logo" 
+              className="h-24 w-auto"
+            />
           </div>
         </div>
       </div>
