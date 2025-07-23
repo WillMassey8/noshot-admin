@@ -1,4 +1,5 @@
 import { StatCard } from "@/components/StatCard";
+import { UsersTable } from "@/components/UsersTable";
 import { UserGrowthChart } from "@/components/UserGrowthChart";
 import { BettingStats } from "@/components/BettingStats";
 import { RevenueStats } from "@/components/RevenueStats";
@@ -44,6 +45,12 @@ const Index = () => {
               subtitle="67.5% of total users"
             />
           </div>
+          
+          {/* User Growth Chart */}
+          <div className="mb-8">
+            <UserGrowthChart />
+          </div>
+          
           <UsersTable />
         </section>
 
