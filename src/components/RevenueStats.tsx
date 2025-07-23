@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { StatCard } from "./StatCard";
+import { DollarSign, Users, Crown, TrendingDown } from "lucide-react";
 
 interface RevenueData {
   period: string;
@@ -78,22 +79,30 @@ export function RevenueStats() {
           value={`$${data.revenue.toLocaleString()}`}
           subtitle={data.period}
           trend={{ value: "12.5%", isPositive: true }}
+          icon={DollarSign}
+          accentColor="green"
         />
         <StatCard
           title="Basic Subscriptions"
           value={data.subscriptions.basic}
           subtitle="$9.99/month"
+          icon={Users}
+          accentColor="blue"
         />
         <StatCard
           title="Premium Subscriptions"
           value={data.subscriptions.premium}
           subtitle="$19.99/month"
+          icon={Crown}
+          accentColor="purple"
         />
         <StatCard
           title="Churn Rate"
           value={`${data.churnRate}%`}
           subtitle={data.period}
           trend={{ value: "0.8%", isPositive: false }}
+          icon={TrendingDown}
+          accentColor="red"
         />
       </div>
 

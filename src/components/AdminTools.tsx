@@ -112,13 +112,13 @@ export function AdminTools() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold text-foreground">Admin Tools</h2>
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Announcement */}
-        <Card className="bg-section-bg border-border shadow-sm">
-          <div className="p-6 border-b border-divider">
+        <Card className="bg-section-bg border-border shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="p-6 border-b border-divider bg-gradient-to-r from-blue-50/50 to-indigo-50/50">
             <h3 className="text-lg font-semibold text-foreground">Post Announcement</h3>
+            <p className="text-sm text-muted-foreground mt-1">Send announcements to all users</p>
           </div>
           <div className="p-6 space-y-4">
             <Textarea
@@ -126,17 +126,19 @@ export function AdminTools() {
               value={announcement}
               onChange={(e) => setAnnouncement(e.target.value)}
               rows={4}
+              className="hover:border-primary/50 transition-colors"
             />
-            <Button onClick={handleSaveAnnouncement} className="w-full">
+            <Button onClick={handleSaveAnnouncement} className="w-full hover:scale-105 transition-transform">
               Save Announcement
             </Button>
           </div>
         </Card>
 
         {/* Push Notification */}
-        <Card className="bg-section-bg border-border shadow-sm">
-          <div className="p-6 border-b border-divider">
+        <Card className="bg-section-bg border-border shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="p-6 border-b border-divider bg-gradient-to-r from-green-50/50 to-emerald-50/50">
             <h3 className="text-lg font-semibold text-foreground">Schedule Push Notification</h3>
+            <p className="text-sm text-muted-foreground mt-1">Schedule notifications for users</p>
           </div>
           <div className="p-6 space-y-4">
             <div>
@@ -149,6 +151,7 @@ export function AdminTools() {
                   setPushNotification(prev => ({ ...prev, message: e.target.value }))
                 }
                 rows={3}
+                className="hover:border-primary/50 transition-colors"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -161,6 +164,7 @@ export function AdminTools() {
                   onChange={(e) =>
                     setPushNotification(prev => ({ ...prev, date: e.target.value }))
                   }
+                  className="hover:border-primary/50 transition-colors"
                 />
               </div>
               <div>
@@ -172,10 +176,11 @@ export function AdminTools() {
                   onChange={(e) =>
                     setPushNotification(prev => ({ ...prev, time: e.target.value }))
                   }
+                  className="hover:border-primary/50 transition-colors"
                 />
               </div>
             </div>
-            <Button onClick={handleSchedulePush} className="w-full">
+            <Button onClick={handleSchedulePush} className="w-full hover:scale-105 transition-transform">
               Schedule Notification
             </Button>
           </div>
