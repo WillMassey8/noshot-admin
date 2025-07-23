@@ -1,5 +1,5 @@
 import { StatCard } from "@/components/StatCard";
-import { UsersTable } from "@/components/UsersTable";
+import { UserGrowthChart } from "@/components/UserGrowthChart";
 import { BettingStats } from "@/components/BettingStats";
 import { RevenueStats } from "@/components/RevenueStats";
 import { AdminTools } from "@/components/AdminTools";
