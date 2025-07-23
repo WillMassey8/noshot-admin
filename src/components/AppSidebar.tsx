@@ -69,11 +69,9 @@ export function AppSidebar() {
     <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
       <SidebarContent>
         <div className="p-6">
-          <img 
-            src="/lovable-uploads/fc3944e2-6346-4b26-bac8-b0c8c5e2d63a.png" 
-            alt="NoShot Logo" 
-            className={collapsed ? "h-8 w-auto" : "h-12 w-auto"}
-          />
+          <div className="text-lg font-semibold text-sidebar-foreground">
+            {!collapsed && "NoShot Admin"}
+          </div>
         </div>
         
         <SidebarGroup>
