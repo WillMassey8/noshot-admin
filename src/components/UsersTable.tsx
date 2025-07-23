@@ -67,7 +67,6 @@ export function UsersTable() {
               <th className="text-left py-4 px-6 text-sm font-medium text-stat-small">Date Joined</th>
               <th className="text-left py-4 px-6 text-sm font-medium text-stat-small">Sportsbook</th>
               <th className="text-left py-4 px-6 text-sm font-medium text-stat-small">Subscription</th>
-              <th className="text-right py-4 px-6 text-sm font-medium text-stat-small">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -101,17 +100,6 @@ export function UsersTable() {
                   <Badge variant="outline" className="text-xs font-medium">
                     {user.subscriptionTier}
                   </Badge>
-                </td>
-                <td className="py-4 px-6 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <span className="text-xs text-stat-small">
-                      {user.isActive ? "Active" : "Suspended"}
-                    </span>
-                    <Switch
-                      checked={user.isActive}
-                      onCheckedChange={() => toggleUserStatus(user.id)}
-                    />
-                  </div>
                 </td>
               </tr>
             ))}
