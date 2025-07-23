@@ -9,7 +9,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="border-b border-divider bg-section-bg">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-center">
             <img 
               src="/lovable-uploads/fc3944e2-6346-4b26-bac8-b0c8c5e2d63a.png" 
