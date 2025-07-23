@@ -90,17 +90,18 @@ export function UserGrowthChart() {
             >
               <XAxis 
                 dataKey="period" 
-                axisLine={true}
-                tickLine={true}
-                tick={{ fontSize: 12, fill: '#666' }}
+                axisLine={{ stroke: '#E5E7EB', strokeWidth: 1 }}
+                tickLine={{ stroke: '#E5E7EB', strokeWidth: 1 }}
+                tick={{ fontSize: 11, fill: '#9CA3AF', fontWeight: 500 }}
                 className="text-xs"
               />
               <YAxis 
                 tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
-                axisLine={true}
-                tickLine={true}
-                tick={{ fontSize: 12, fill: '#666' }}
+                axisLine={{ stroke: '#E5E7EB', strokeWidth: 1 }}
+                tickLine={{ stroke: '#E5E7EB', strokeWidth: 1 }}
+                tick={{ fontSize: 11, fill: '#9CA3AF', fontWeight: 500 }}
                 className="text-xs"
+                domain={['dataMin - 100', 'dataMax + 100']}
               />
               <Line
                 type="monotone"
