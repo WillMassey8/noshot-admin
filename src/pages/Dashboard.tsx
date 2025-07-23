@@ -28,7 +28,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-semibold text-foreground mb-2">
-              {getGreeting()}, Admin
+              {getGreeting()}, Will
             </h1>
             <p className="text-muted-foreground">
               Welcome to your NoShot admin dashboard. Here's what's happening today.
