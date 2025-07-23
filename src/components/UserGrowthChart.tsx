@@ -68,6 +68,7 @@ export function UserGrowthChart() {
   return (
     <Card className="bg-white border-0 shadow-none">
       <div className="p-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">Revenue</h3>
         <div className="mb-6">
           <div className="text-3xl font-bold text-gray-900 mb-1">
             ${currentValue.toLocaleString()}.31
