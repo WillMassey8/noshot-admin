@@ -1,3 +1,4 @@
+import React from "react";
 import { StatCard } from "@/components/StatCard";
 import { UserGrowthChart } from "@/components/UserGrowthChart";
 

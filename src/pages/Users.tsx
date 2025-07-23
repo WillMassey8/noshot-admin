@@ -1,3 +1,4 @@
+import React from "react";
 import { StatCard } from "@/components/StatCard";
 import { UsersTable } from "@/components/UsersTable";
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { BettingStats } from "@/components/BettingStats";
 
 const Betting = () => {

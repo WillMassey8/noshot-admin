@@ -1,3 +1,4 @@
+import React from "react";
 import { RevenueStats } from "@/components/RevenueStats";
 
 const Revenue = () => {

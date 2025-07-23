@@ -1,3 +1,4 @@
+import React from "react";
 import { AdminTools } from "@/components/AdminTools";
 
 const Admin = () => {
