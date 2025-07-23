@@ -9,8 +9,8 @@ interface RevenueData {
   period: string;
   revenue: number;
   subscriptions: {
-    basic: number;
-    premium: number;
+    linked: number;
+    nonLinked: number;
   };
   churnRate: number;
 }
@@ -19,25 +19,25 @@ const mockRevenueData: Record<string, RevenueData> = {
   day: {
     period: "Today",
     revenue: 1247,
-    subscriptions: { basic: 15, premium: 8 },
+    subscriptions: { linked: 15, nonLinked: 8 },
     churnRate: 2.1,
   },
   week: {
     period: "This Week",
     revenue: 8934,
-    subscriptions: { basic: 142, premium: 67 },
+    subscriptions: { linked: 142, nonLinked: 67 },
     churnRate: 3.4,
   },
   month: {
     period: "This Month",
     revenue: 34250,
-    subscriptions: { basic: 567, premium: 289 },
+    subscriptions: { linked: 567, nonLinked: 289 },
     churnRate: 4.2,
   },
   year: {
     period: "This Year",
     revenue: 425680,
-    subscriptions: { basic: 6840, premium: 3520 },
+    subscriptions: { linked: 6840, nonLinked: 3520 },
     churnRate: 5.8,
   },
 };
@@ -83,15 +83,15 @@ export function RevenueStats() {
           accentColor="green"
         />
         <StatCard
-          title="Basic Subscriptions"
-          value={data.subscriptions.basic}
+          title="Linked Subscriptions"
+          value={data.subscriptions.linked}
           subtitle="$9.99/month"
           icon={Users}
           accentColor="blue"
         />
         <StatCard
-          title="Premium Subscriptions"
-          value={data.subscriptions.premium}
+          title="Non Linked Subscriptions"
+          value={data.subscriptions.nonLinked}
           subtitle="$19.99/month"
           icon={Crown}
           accentColor="purple"
@@ -115,25 +115,25 @@ export function RevenueStats() {
           <div className="p-6 space-y-4">
             <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
               <div>
-                <p className="text-sm font-medium text-foreground">Basic Plan</p>
+                <p className="text-sm font-medium text-foreground">Linked Plan</p>
                 <p className="text-xs text-stat-small">$9.99/month</p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-semibold text-stat-big">{data.subscriptions.basic}</p>
+                <p className="text-lg font-semibold text-stat-big">{data.subscriptions.linked}</p>
                 <p className="text-xs text-stat-small">
-                  ${(data.subscriptions.basic * 9.99).toLocaleString()}/month
+                  ${(data.subscriptions.linked * 9.99).toLocaleString()}/month
                 </p>
               </div>
             </div>
             <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
               <div>
-                <p className="text-sm font-medium text-foreground">Premium Plan</p>
+                <p className="text-sm font-medium text-foreground">Non Linked Plan</p>
                 <p className="text-xs text-stat-small">$19.99/month</p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-semibold text-stat-big">{data.subscriptions.premium}</p>
+                <p className="text-lg font-semibold text-stat-big">{data.subscriptions.nonLinked}</p>
                 <p className="text-xs text-stat-small">
-                  ${(data.subscriptions.premium * 19.99).toLocaleString()}/month
+                  ${(data.subscriptions.nonLinked * 19.99).toLocaleString()}/month
                 </p>
               </div>
             </div>
