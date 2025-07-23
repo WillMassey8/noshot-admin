@@ -56,9 +56,14 @@ export function UsersTable() {
 
   return (
     <Card className="bg-section-bg border-border shadow-sm hover:shadow-md transition-all duration-300">
-      <div className="p-6 border-b border-divider bg-gradient-to-r from-blue-50/50 to-purple-50/50">
-        <h3 className="text-lg font-semibold text-foreground">Users</h3>
-        <p className="text-sm text-muted-foreground mt-1">Manage and monitor user accounts</p>
+      <div className="p-6 border-b border-divider bg-gradient-to-r from-blue-50/50 to-purple-50/50 flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-foreground">Users</h3>
+          <p className="text-sm text-muted-foreground mt-1">Manage and monitor user accounts</p>
+        </div>
+        <Button variant="outline" size="sm">
+          View All Users
+        </Button>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full">

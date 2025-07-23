@@ -117,8 +117,11 @@ export function BettingStats() {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Most Faded Bettors */}
             <Card className="bg-section-bg border-border shadow-sm">
-              <div className="p-6 border-b border-divider">
+              <div className="p-6 border-b border-divider flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-foreground">Most Faded</h3>
+                <Button variant="outline" size="sm">
+                  View All
+                </Button>
               </div>
               <div className="p-6 space-y-4">
                 {mockFadedBettors.map((better, index) => (
@@ -138,8 +141,11 @@ export function BettingStats() {
 
             {/* Coldest Streaks */}
             <Card className="bg-section-bg border-border shadow-sm">
-              <div className="p-6 border-b border-divider">
+              <div className="p-6 border-b border-divider flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-foreground">Coldest Streaks</h3>
+                <Button variant="outline" size="sm">
+                  View All
+                </Button>
               </div>
               <div className="p-6 space-y-4">
                 {mockColdStreaks.map((better, index) => (
@@ -158,8 +164,11 @@ export function BettingStats() {
 
             {/* Worst Bettors */}
             <Card className="bg-section-bg border-border shadow-sm">
-              <div className="p-6 border-b border-divider">
+              <div className="p-6 border-b border-divider flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-foreground">Worst Performers</h3>
+                <Button variant="outline" size="sm">
+                  View All
+                </Button>
               </div>
               <div className="p-6 space-y-4">
                 {mockWorstBettors.map((better, index) => (

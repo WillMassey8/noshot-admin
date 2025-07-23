@@ -1,5 +1,6 @@
 
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { UserPlus, UserMinus, DollarSign, AlertTriangle } from "lucide-react";
@@ -87,7 +88,12 @@ export function RecentActivity() {
 
   return (
     <Card className="p-6 bg-section-bg border-border shadow-sm">
-      <h3 className="text-lg font-semibold text-foreground mb-4">Recent Activity</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold text-foreground">Recent Activity</h3>
+        <Button variant="outline" size="sm">
+          View All
+        </Button>
+      </div>
       <div className="space-y-4">
         {mockActivities.map((activity) => (
           <div key={activity.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-hover-bg transition-colors">
