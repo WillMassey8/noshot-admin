@@ -1,7 +1,7 @@
+
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 interface UserGrowthData {
   period: string;
@@ -49,83 +49,77 @@ const mockUserData: Record<string, UserGrowthData[]> = {
 };
 
 export function UserGrowthChart() {
-  const [selectedPeriod, setSelectedPeriod] = useState("month");
+  const [selectedPeriod, setSelectedPeriod] = useState("all-time");
   const data = mockUserData[selectedPeriod];
 
-  const formatTooltipValue = (value: number) => {
-    return [`${value.toLocaleString()} users`, "Total Users"];
-  };
+  const currentValue = data[data.length - 1]?.users || 0;
+  const previousValue = data[data.length - 2]?.users || 0;
+  const change = currentValue - previousValue;
+  const changePercent = previousValue ? ((change / previousValue) * 100).toFixed(2) : "0";
 
-  const formatTooltipLabel = (label: string) => {
-    const dataPoint = data.find(d => d.period === label);
-    return dataPoint ? `${label} (${dataPoint.date})` : label;
-  };
+  const timeButtons = [
+    { value: "day", label: "1D" },
+    { value: "week", label: "1W" },
+    { value: "month", label: "1M" },
+    { value: "year", label: "1Y" },
+    { value: "all-time", label: "ALL" },
+  ];
 
   return (
-    <Card className="bg-section-bg border-border shadow-sm">
-      <div className="p-6 border-b border-divider">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-foreground">User Growth</h3>
-          <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-            <SelectTrigger className="w-32">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="day">Day</SelectItem>
-              <SelectItem value="week">Week</SelectItem>
-              <SelectItem value="month">Month</SelectItem>
-              <SelectItem value="year">Year</SelectItem>
-              <SelectItem value="all-time">All Time</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+    <Card className="bg-white border-0 shadow-none">
       <div className="p-6">
-        <div className="h-80 w-full">
+        <div className="mb-6">
+          <div className="text-3xl font-bold text-gray-900 mb-1">
+            ${currentValue.toLocaleString()}.31
+          </div>
+          <div className="flex items-center text-sm">
+            <span className="text-green-600 mr-1">▲</span>
+            <span className="text-green-600 font-medium">
+              ${Math.abs(change).toLocaleString()}.47 ({changePercent}%)
+            </span>
+            <span className="text-gray-500 ml-1">all time</span>
+          </div>
+        </div>
+
+        <div className="h-64 w-full mb-6">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--divider))" />
+            <LineChart 
+              data={data} 
+              margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+            >
               <XAxis 
                 dataKey="period" 
-                stroke="hsl(var(--stat-small))"
-                fontSize={12}
+                axisLine={false}
+                tickLine={false}
+                tick={false}
               />
-              <YAxis 
-                stroke="hsl(var(--stat-small))"
-                fontSize={12}
-                tickFormatter={(value) => value.toLocaleString()}
-              />
-              <Tooltip
-                formatter={formatTooltipValue}
-                labelFormatter={formatTooltipLabel}
-                contentStyle={{
-                  backgroundColor: "hsl(var(--card))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "6px",
-                  boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
-                }}
-                labelStyle={{ color: "hsl(var(--foreground))" }}
-              />
+              <YAxis hide />
               <Line
                 type="monotone"
                 dataKey="users"
-                stroke="hsl(var(--primary))"
-                strokeWidth={3}
-                dot={{ 
-                  fill: "hsl(var(--primary))", 
-                  strokeWidth: 2, 
-                  r: 4,
-                  stroke: "hsl(var(--card))"
-                }}
-                activeDot={{ 
-                  r: 6, 
-                  fill: "hsl(var(--primary))",
-                  stroke: "hsl(var(--card))",
-                  strokeWidth: 2
-                }}
+                stroke="#00C805"
+                strokeWidth={2}
+                dot={false}
+                activeDot={false}
               />
             </LineChart>
           </ResponsiveContainer>
+        </div>
+
+        <div className="flex justify-center space-x-1">
+          {timeButtons.map((button) => (
+            <button
+              key={button.value}
+              onClick={() => setSelectedPeriod(button.value)}
+              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                selectedPeriod === button.value
+                  ? "bg-green-600 text-white"
+                  : "text-gray-600 hover:bg-gray-100"
+              }`}
+            >
+              {button.label}
+            </button>
+          ))}
         </div>
       </div>
     </Card>
