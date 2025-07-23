@@ -1,11 +1,81 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { StatCard } from "@/components/StatCard";
+import { UsersTable } from "@/components/UsersTable";
+import { BettingStats } from "@/components/BettingStats";
+import { RevenueStats } from "@/components/RevenueStats";
+import { AdminTools } from "@/components/AdminTools";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <div className="border-b border-divider bg-section-bg">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-semibold text-foreground">NoShot Admin</h1>
+              <p className="text-stat-small mt-1">Sports betting intelligence dashboard</p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-stat-small">Last updated</p>
+              <p className="text-sm font-medium text-foreground">
+                {new Date().toLocaleString()}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        {/* User Overview */}
+        <section>
+          <h2 className="text-xl font-semibold text-foreground mb-6">User Overview</h2>
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <StatCard
+              title="Total Users"
+              value="2,847"
+              trend={{ value: "12%", isPositive: true }}
+              subtitle="All time"
+            />
+            <StatCard
+              title="New Users This Week"
+              value="156"
+              trend={{ value: "8%", isPositive: true }}
+              subtitle="Jan 15-22, 2024"
+            />
+            <StatCard
+              title="Sportsbook Linked"
+              value="1,923"
+              subtitle="67.5% of total users"
+            />
+          </div>
+          <UsersTable />
+        </section>
+
+        {/* Horizontal Divider */}
+        <div className="border-t border-divider"></div>
+
+        {/* Betting Stats */}
+        <section>
+          <h2 className="text-xl font-semibold text-foreground mb-6">Betting Statistics</h2>
+          <BettingStats />
+        </section>
+
+        {/* Horizontal Divider */}
+        <div className="border-t border-divider"></div>
+
+        {/* Revenue & Subscriptions */}
+        <section>
+          <RevenueStats />
+        </section>
+
+        {/* Horizontal Divider */}
+        <div className="border-t border-divider"></div>
+
+        {/* Admin Tools */}
+        <section>
+          <AdminTools />
+        </section>
       </div>
     </div>
   );

@@ -1,0 +1,154 @@
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { StatCard } from "./StatCard";
+
+interface RevenueData {
+  period: string;
+  revenue: number;
+  subscriptions: {
+    basic: number;
+    premium: number;
+  };
+  churnRate: number;
+}
+
+const mockRevenueData: Record<string, RevenueData> = {
+  day: {
+    period: "Today",
+    revenue: 1247,
+    subscriptions: { basic: 15, premium: 8 },
+    churnRate: 2.1,
+  },
+  week: {
+    period: "This Week",
+    revenue: 8934,
+    subscriptions: { basic: 142, premium: 67 },
+    churnRate: 3.4,
+  },
+  month: {
+    period: "This Month",
+    revenue: 34250,
+    subscriptions: { basic: 567, premium: 289 },
+    churnRate: 4.2,
+  },
+  year: {
+    period: "This Year",
+    revenue: 425680,
+    subscriptions: { basic: 6840, premium: 3520 },
+    churnRate: 5.8,
+  },
+};
+
+const cancelReasons = [
+  { reason: "Too expensive", count: 23 },
+  { reason: "Not enough value", count: 18 },
+  { reason: "Technical issues", count: 12 },
+  { reason: "Found better alternative", count: 9 },
+  { reason: "No longer betting", count: 7 },
+];
+
+export function RevenueStats() {
+  const [selectedPeriod, setSelectedPeriod] = useState("month");
+  const data = mockRevenueData[selectedPeriod];
+
+  return (
+    <div className="space-y-6">
+      {/* Date Filter */}
+      <div className="flex items-center gap-4">
+        <h2 className="text-xl font-semibold text-foreground">Revenue & Subscriptions</h2>
+        <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="day">Day</SelectItem>
+            <SelectItem value="week">Week</SelectItem>
+            <SelectItem value="month">Month</SelectItem>
+            <SelectItem value="year">Year</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Revenue Summary */}
+      <div className="grid md:grid-cols-4 gap-6">
+        <StatCard
+          title="Total Revenue"
+          value={`$${data.revenue.toLocaleString()}`}
+          subtitle={data.period}
+          trend={{ value: "12.5%", isPositive: true }}
+        />
+        <StatCard
+          title="Basic Subscriptions"
+          value={data.subscriptions.basic}
+          subtitle="$9.99/month"
+        />
+        <StatCard
+          title="Premium Subscriptions"
+          value={data.subscriptions.premium}
+          subtitle="$19.99/month"
+        />
+        <StatCard
+          title="Churn Rate"
+          value={`${data.churnRate}%`}
+          subtitle={data.period}
+          trend={{ value: "0.8%", isPositive: false }}
+        />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Active Subscriptions Breakdown */}
+        <Card className="bg-section-bg border-border shadow-sm">
+          <div className="p-6 border-b border-divider">
+            <h3 className="text-lg font-semibold text-foreground">Active Subscriptions</h3>
+          </div>
+          <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
+              <div>
+                <p className="text-sm font-medium text-foreground">Basic Plan</p>
+                <p className="text-xs text-stat-small">$9.99/month</p>
+              </div>
+              <div className="text-right">
+                <p className="text-lg font-semibold text-stat-big">{data.subscriptions.basic}</p>
+                <p className="text-xs text-stat-small">
+                  ${(data.subscriptions.basic * 9.99).toLocaleString()}/month
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
+              <div>
+                <p className="text-sm font-medium text-foreground">Premium Plan</p>
+                <p className="text-xs text-stat-small">$19.99/month</p>
+              </div>
+              <div className="text-right">
+                <p className="text-lg font-semibold text-stat-big">{data.subscriptions.premium}</p>
+                <p className="text-xs text-stat-small">
+                  ${(data.subscriptions.premium * 19.99).toLocaleString()}/month
+                </p>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Cancel Reasons */}
+        <Card className="bg-section-bg border-border shadow-sm">
+          <div className="p-6 border-b border-divider flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-foreground">Cancel Reasons</h3>
+            <Button variant="outline" size="sm">
+              View Stripe
+            </Button>
+          </div>
+          <div className="p-6 space-y-3">
+            {cancelReasons.map((item, index) => (
+              <div key={index} className="flex items-center justify-between">
+                <p className="text-sm text-foreground">{item.reason}</p>
+                <span className="text-sm font-medium text-stat-big">{item.count}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
