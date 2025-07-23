@@ -76,23 +76,16 @@ const Dashboard = () => {
           <UserGrowthChart />
         </div>
         
-        {/* Right Column - Quick Actions */}
+        {/* Right Column - Recent Activity */}
         <div>
-          <QuickActions />
+          <RecentActivity />
         </div>
       </div>
 
       {/* Bottom Section */}
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Recent Activity */}
-        <div>
-          <RecentActivity />
-        </div>
-        
+      <div>
         {/* Alerts */}
-        <div>
-          <AlertCards />
-        </div>
+        <AlertCards />
       </div>
     </div>
   );
