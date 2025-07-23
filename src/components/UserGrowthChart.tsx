@@ -82,7 +82,7 @@ export function UserGrowthChart() {
           </div>
         </div>
 
-        <div className="h-64 w-full mb-6">
+        <div className="h-80 w-full mb-6">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart 
               data={data} 
