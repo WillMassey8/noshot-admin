@@ -14,45 +14,9 @@ interface User {
   isActive: boolean;
 }
 
-const mockUsers: User[] = [
-  {
-    id: "1",
-    email: "john.doe@example.com",
-    dateJoined: "2024-01-15",
-    sportsbookLinked: true,
-    sportsbookName: "DraftKings",
-    subscriptionTier: "$19.99",
-    isActive: true,
-  },
-  {
-    id: "2",
-    email: "sarah.smith@example.com",
-    dateJoined: "2024-01-20",
-    sportsbookLinked: false,
-    subscriptionTier: "$9.99",
-    isActive: true,
-  },
-  {
-    id: "3",
-    email: "mike.johnson@example.com",
-    dateJoined: "2024-01-18",
-    sportsbookLinked: true,
-    sportsbookName: "FanDuel",
-    subscriptionTier: "$19.99",
-    isActive: false,
-  },
-];
+const users: User[] = [];
 
 export function UsersTable() {
-  const [users, setUsers] = useState(mockUsers);
-
-  const toggleUserStatus = (userId: string) => {
-    setUsers(prev =>
-      prev.map(user =>
-        user.id === userId ? { ...user, isActive: !user.isActive } : user
-      )
-    );
-  };
 
   return (
     <Card className="bg-section-bg border-border shadow-sm hover:shadow-md transition-all duration-300">
@@ -76,39 +40,47 @@ export function UsersTable() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr
-                key={user.id}
-                className="border-b border-divider last:border-0 hover:bg-hover-bg transition-colors"
-              >
-                <td className="py-4 px-6">
-                  <span className="text-sm font-medium text-foreground">
-                    {user.email}
-                  </span>
-                </td>
-                <td className="py-4 px-6">
-                  <span className="text-sm text-stat-small">
-                    {new Date(user.dateJoined).toLocaleDateString()}
-                  </span>
-                </td>
-                <td className="py-4 px-6">
-                  {user.sportsbookLinked ? (
-                    <div className="flex items-center gap-2">
-                      <Badge variant="secondary" className="text-xs">
-                        {user.sportsbookName}
-                      </Badge>
-                    </div>
-                  ) : (
-                    <span className="text-sm text-stat-small">Not linked</span>
-                  )}
-                </td>
-                <td className="py-4 px-6">
-                  <Badge variant="outline" className="text-xs font-medium">
-                    {user.subscriptionTier}
-                  </Badge>
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="py-8 text-center text-stat-small">
+                  No users found
                 </td>
               </tr>
-            ))}
+            ) : (
+              users.map((user) => (
+                <tr
+                  key={user.id}
+                  className="border-b border-divider last:border-0 hover:bg-hover-bg transition-colors"
+                >
+                  <td className="py-4 px-6">
+                    <span className="text-sm font-medium text-foreground">
+                      {user.email}
+                    </span>
+                  </td>
+                  <td className="py-4 px-6">
+                    <span className="text-sm text-stat-small">
+                      {new Date(user.dateJoined).toLocaleDateString()}
+                    </span>
+                  </td>
+                  <td className="py-4 px-6">
+                    {user.sportsbookLinked ? (
+                      <div className="flex items-center gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {user.sportsbookName}
+                        </Badge>
+                      </div>
+                    ) : (
+                      <span className="text-sm text-stat-small">Not linked</span>
+                    )}
+                  </td>
+                  <td className="py-4 px-6">
+                    <Badge variant="outline" className="text-xs font-medium">
+                      {user.subscriptionTier}
+                    </Badge>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -14,32 +14,7 @@ interface ErrorLog {
   severity: "low" | "medium" | "high";
 }
 
-const mockErrorLogs: ErrorLog[] = [
-  {
-    id: "1",
-    timestamp: "2024-01-22 14:30:25",
-    message: "API timeout connecting to DraftKings",
-    severity: "medium",
-  },
-  {
-    id: "2",
-    timestamp: "2024-01-22 13:15:10",
-    message: "User authentication failed for premium feature",
-    severity: "low",
-  },
-  {
-    id: "3",
-    timestamp: "2024-01-22 12:45:33",
-    message: "Database connection pool exhausted",
-    severity: "high",
-  },
-  {
-    id: "4",
-    timestamp: "2024-01-22 11:20:18",
-    message: "Stripe webhook validation failed",
-    severity: "medium",
-  },
-];
+const errorLogs: ErrorLog[] = [];
 
 export function AdminTools() {
   const [announcement, setAnnouncement] = useState("");
@@ -216,22 +191,28 @@ export function AdminTools() {
           <h3 className="text-lg font-semibold text-foreground">Error Logs</h3>
         </div>
         <div className="p-6 space-y-3">
-          {mockErrorLogs.map((log) => (
-            <div
-              key={log.id}
-              className="flex items-center justify-between p-4 bg-muted rounded-lg hover:bg-hover-bg transition-colors"
-            >
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-1">
-                  <Badge variant={getSeverityColor(log.severity)} className="text-xs">
-                    {log.severity.toUpperCase()}
-                  </Badge>
-                  <span className="text-xs text-stat-small">{log.timestamp}</span>
-                </div>
-                <p className="text-sm text-foreground">{log.message}</p>
-              </div>
+          {errorLogs.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-stat-small">No error logs</p>
             </div>
-          ))}
+          ) : (
+            errorLogs.map((log) => (
+              <div
+                key={log.id}
+                className="flex items-center justify-between p-4 bg-muted rounded-lg hover:bg-hover-bg transition-colors"
+              >
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-1">
+                    <Badge variant={getSeverityColor(log.severity)} className="text-xs">
+                      {log.severity.toUpperCase()}
+                    </Badge>
+                    <span className="text-xs text-stat-small">{log.timestamp}</span>
+                  </div>
+                  <p className="text-sm text-foreground">{log.message}</p>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </Card>
 
@@ -242,22 +223,9 @@ export function AdminTools() {
             <h3 className="text-lg font-semibold text-foreground">Recent Login History</h3>
           </div>
           <div className="p-6 space-y-3">
-            {[
-              { email: "john.doe@example.com", timestamp: "2024-01-22 15:30:00", ip: "192.168.1.100" },
-              { email: "sarah.smith@example.com", timestamp: "2024-01-22 14:45:12", ip: "10.0.0.50" },
-              { email: "mike.johnson@example.com", timestamp: "2024-01-22 13:20:35", ip: "172.16.0.25" },
-            ].map((login, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-3 bg-muted rounded-lg"
-              >
-                <div>
-                  <p className="text-sm font-medium text-foreground">{login.email}</p>
-                  <p className="text-xs text-stat-small">{login.timestamp}</p>
-                </div>
-                <span className="text-xs text-stat-small">{login.ip}</span>
-              </div>
-            ))}
+            <div className="text-center py-8">
+              <p className="text-stat-small">No recent login history</p>
+            </div>
           </div>
         </Card>
       )}

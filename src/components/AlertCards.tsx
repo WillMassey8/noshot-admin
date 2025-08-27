@@ -13,31 +13,7 @@ interface Alert {
   action?: string;
 }
 
-const mockAlerts: Alert[] = [
-  {
-    id: "1",
-    type: "warning",
-    title: "High Churn Rate",
-    description: "Monthly churn rate has increased to 2.3%",
-    metric: "+0.8%",
-    action: "View Details"
-  },
-  {
-    id: "2",
-    type: "success",
-    title: "Growth Target Met",
-    description: "New user signups exceeded monthly goal",
-    metric: "156 users",
-    action: "View Report"
-  },
-  {
-    id: "3",
-    type: "info",
-    title: "Payment Processing",
-    description: "Monthly billing cycle starting tomorrow",
-    action: "Prepare"
-  }
-];
+const alerts: Alert[] = [];
 
 export function AlertCards() {
   const getAlertIcon = (type: string) => {
@@ -70,13 +46,22 @@ export function AlertCards() {
     }
   };
 
-  if (mockAlerts.length === 0) return null;
+  if (alerts.length === 0) {
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-foreground">Alerts & Notifications</h3>
+        <Card className="p-8 bg-section-bg border-border shadow-sm text-center">
+          <p className="text-stat-small">No alerts at this time</p>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-foreground">Alerts & Notifications</h3>
       <div className="grid gap-4">
-        {mockAlerts.map((alert) => (
+        {alerts.map((alert) => (
           <Card key={alert.id} className="p-4 bg-section-bg border-border shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-start gap-3">
               <div className="flex-shrink-0 mt-0.5">

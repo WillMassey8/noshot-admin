@@ -14,46 +14,7 @@ interface ActivityItem {
   amount?: string;
 }
 
-const mockActivities: ActivityItem[] = [
-  {
-    id: "1",
-    type: "signup",
-    user: "John Doe",
-    action: "signed up for Premium",
-    time: "2 min ago",
-    amount: "$19.99"
-  },
-  {
-    id: "2",
-    type: "cancellation",
-    user: "Jane Smith",
-    action: "cancelled subscription",
-    time: "5 min ago"
-  },
-  {
-    id: "3",
-    type: "payment",
-    user: "Mike Johnson",
-    action: "payment processed",
-    time: "12 min ago",
-    amount: "$9.99"
-  },
-  {
-    id: "4",
-    type: "alert",
-    user: "System",
-    action: "High churn rate detected",
-    time: "15 min ago"
-  },
-  {
-    id: "5",
-    type: "signup",
-    user: "Sarah Wilson",
-    action: "signed up for Basic",
-    time: "18 min ago",
-    amount: "$9.99"
-  }
-];
+const activities: ActivityItem[] = [];
 
 export function RecentActivity() {
   const getActivityIcon = (type: string) => {
@@ -95,37 +56,43 @@ export function RecentActivity() {
         </Button>
       </div>
       <div className="space-y-4">
-        {mockActivities.map((activity) => (
-          <div key={activity.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-hover-bg transition-colors">
-            <div className="flex-shrink-0">
-              {getActivityIcon(activity.type)}
-            </div>
-            <Avatar className="h-8 w-8">
-              <AvatarFallback className="text-xs bg-muted">
-                {activity.user.split(' ').map(n => n[0]).join('')}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-medium text-foreground truncate">
-                  {activity.user}
-                </p>
-                {getActivityBadge(activity.type)}
-              </div>
-              <p className="text-sm text-stat-small">
-                {activity.action}
-                {activity.amount && (
-                  <span className="font-medium text-foreground ml-1">
-                    {activity.amount}
-                  </span>
-                )}
-              </p>
-            </div>
-            <div className="text-xs text-stat-small">
-              {activity.time}
-            </div>
+        {activities.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-stat-small">No recent activity</p>
           </div>
-        ))}
+        ) : (
+          activities.map((activity) => (
+            <div key={activity.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-hover-bg transition-colors">
+              <div className="flex-shrink-0">
+                {getActivityIcon(activity.type)}
+              </div>
+              <Avatar className="h-8 w-8">
+                <AvatarFallback className="text-xs bg-muted">
+                  {activity.user.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium text-foreground truncate">
+                    {activity.user}
+                  </p>
+                  {getActivityBadge(activity.type)}
+                </div>
+                <p className="text-sm text-stat-small">
+                  {activity.action}
+                  {activity.amount && (
+                    <span className="font-medium text-foreground ml-1">
+                      {activity.amount}
+                    </span>
+                  )}
+                </p>
+              </div>
+              <div className="text-xs text-stat-small">
+                {activity.time}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </Card>
   );

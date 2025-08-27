@@ -15,44 +15,18 @@ interface RevenueData {
   churnRate: number;
 }
 
-const mockRevenueData: Record<string, RevenueData> = {
-  day: {
-    period: "Today",
-    revenue: 1247,
-    subscriptions: { linked: 15, nonLinked: 8 },
-    churnRate: 2.1,
-  },
-  week: {
-    period: "This Week",
-    revenue: 8934,
-    subscriptions: { linked: 142, nonLinked: 67 },
-    churnRate: 3.4,
-  },
-  month: {
-    period: "This Month",
-    revenue: 34250,
-    subscriptions: { linked: 567, nonLinked: 289 },
-    churnRate: 4.2,
-  },
-  year: {
-    period: "This Year",
-    revenue: 425680,
-    subscriptions: { linked: 6840, nonLinked: 3520 },
-    churnRate: 5.8,
-  },
+const revenueData: Record<string, RevenueData> = {
+  day: { period: "Today", revenue: 0, subscriptions: { linked: 0, nonLinked: 0 }, churnRate: 0 },
+  week: { period: "This Week", revenue: 0, subscriptions: { linked: 0, nonLinked: 0 }, churnRate: 0 },
+  month: { period: "This Month", revenue: 0, subscriptions: { linked: 0, nonLinked: 0 }, churnRate: 0 },
+  year: { period: "This Year", revenue: 0, subscriptions: { linked: 0, nonLinked: 0 }, churnRate: 0 },
 };
 
-const cancelReasons = [
-  { reason: "Too expensive", count: 23 },
-  { reason: "Not enough value", count: 18 },
-  { reason: "Technical issues", count: 12 },
-  { reason: "Found better alternative", count: 9 },
-  { reason: "No longer betting", count: 7 },
-];
+const cancelReasons: { reason: string; count: number }[] = [];
 
 export function RevenueStats() {
   const [selectedPeriod, setSelectedPeriod] = useState("month");
-  const data = mockRevenueData[selectedPeriod];
+  const data = revenueData[selectedPeriod];
 
   return (
     <div className="space-y-6">
@@ -78,7 +52,7 @@ export function RevenueStats() {
           title="Total Revenue"
           value={`$${data.revenue.toLocaleString()}`}
           subtitle={data.period}
-          trend={{ value: "12.5%", isPositive: true }}
+          trend={{ value: "0%", isPositive: true }}
           icon={DollarSign}
           accentColor="green"
         />
@@ -100,7 +74,7 @@ export function RevenueStats() {
           title="Churn Rate"
           value={`${data.churnRate}%`}
           subtitle={data.period}
-          trend={{ value: "0.8%", isPositive: false }}
+          trend={{ value: "0%", isPositive: true }}
           icon={TrendingDown}
           accentColor="red"
         />
@@ -149,12 +123,18 @@ export function RevenueStats() {
             </Button>
           </div>
           <div className="p-6 space-y-3">
-            {cancelReasons.map((item, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <p className="text-sm text-foreground">{item.reason}</p>
-                <span className="text-sm font-medium text-stat-big">{item.count}</span>
+            {cancelReasons.length === 0 ? (
+              <div className="text-center py-4">
+                <p className="text-stat-small">No cancellation data available</p>
               </div>
-            ))}
+            ) : (
+              cancelReasons.map((item, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <p className="text-sm text-foreground">{item.reason}</p>
+                  <span className="text-sm font-medium text-stat-big">{item.count}</span>
+                </div>
+              ))
+            )}
           </div>
         </Card>
       </div>

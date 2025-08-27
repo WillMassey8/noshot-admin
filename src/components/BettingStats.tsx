@@ -28,50 +28,10 @@ interface PendingBet {
   sport: string;
 }
 
-const mockFadedBettors: BetterStat[] = [
-  { name: "TailGater99", value: "14", metric: "times faded", trend: "+3 this week" },
-  { name: "SharpShooter", value: "12", metric: "times faded", trend: "+2 this week" },
-  { name: "BetKing23", value: "11", metric: "times faded", trend: "+1 this week" },
-  { name: "LuckyStreak", value: "9", metric: "times faded", trend: "+4 this week" },
-  { name: "SportsFan88", value: "8", metric: "times faded", trend: "+1 this week" },
-];
-
-const mockColdStreaks: BetterStat[] = [
-  { name: "ColdHands", value: "0-12", metric: "current streak" },
-  { name: "BadLuck", value: "1-11", metric: "last 12 bets" },
-  { name: "Slumping", value: "2-10", metric: "last 12 bets" },
-  { name: "Struggling", value: "1-9", metric: "last 10 bets" },
-  { name: "OffDay", value: "0-8", metric: "current streak" },
-];
-
-const mockWorstBettors: BetterStat[] = [
-  { name: "AlwaysWrong", value: "-24.5", metric: "units lost" },
-  { name: "MoneyDrain", value: "-19.2", metric: "units lost" },
-  { name: "BadPicks", value: "-15.8", metric: "units lost" },
-  { name: "LossLeader", value: "-12.3", metric: "units lost" },
-  { name: "SinkHole", value: "-11.1", metric: "units lost" },
-];
-
-const mockAllPendingBets: PendingBet[] = [
-  { id: "1", bettor: "TailGater99", game: "Lakers vs Warriors", bet: "Lakers +5.5", fadeConfidence: 92, amount: "$500", datePlaced: "2024-01-15 14:30", sport: "NBA" },
-  { id: "2", bettor: "SharpShooter", game: "Cowboys vs Eagles", bet: "Over 48.5", fadeConfidence: 87, amount: "$300", datePlaced: "2024-01-15 13:45", sport: "NFL" },
-  { id: "3", bettor: "BetKing23", game: "Heat vs Knicks", bet: "Heat ML", fadeConfidence: 84, amount: "$250", datePlaced: "2024-01-15 12:15", sport: "NBA" },
-  { id: "4", bettor: "ColdHands", game: "Celtics vs Nets", bet: "Under 215.5", fadeConfidence: 91, amount: "$400", datePlaced: "2024-01-15 11:20", sport: "NBA" },
-  { id: "5", bettor: "BadLuck", game: "Chiefs vs Bills", bet: "Chiefs -3.5", fadeConfidence: 89, amount: "$600", datePlaced: "2024-01-15 10:30", sport: "NFL" },
-  { id: "6", bettor: "SportsFan88", game: "Rangers vs Bruins", bet: "Rangers ML", fadeConfidence: 76, amount: "$200", datePlaced: "2024-01-15 09:45", sport: "NHL" },
-  { id: "7", bettor: "LuckyStreak", game: "Dodgers vs Padres", bet: "Over 8.5", fadeConfidence: 82, amount: "$350", datePlaced: "2024-01-15 08:15", sport: "MLB" },
-  { id: "8", bettor: "AlwaysWrong", game: "Bucks vs 76ers", bet: "Bucks -7.5", fadeConfidence: 95, amount: "$450", datePlaced: "2024-01-15 07:30", sport: "NBA" },
-  { id: "9", bettor: "MoneyDrain", game: "Packers vs Vikings", bet: "Under 42.5", fadeConfidence: 78, amount: "$275", datePlaced: "2024-01-15 06:45", sport: "NFL" },
-  { id: "10", bettor: "Slumping", game: "Clippers vs Suns", bet: "Clippers +2.5", fadeConfidence: 88, amount: "$325", datePlaced: "2024-01-15 05:20", sport: "NBA" },
-  { id: "11", bettor: "BadPicks", game: "Lightning vs Panthers", bet: "Lightning ML", fadeConfidence: 73, amount: "$180", datePlaced: "2024-01-15 04:15", sport: "NHL" },
-  { id: "12", bettor: "Struggling", game: "Yankees vs Red Sox", bet: "Yankees -1.5", fadeConfidence: 85, amount: "$220", datePlaced: "2024-01-15 03:30", sport: "MLB" },
-  { id: "13", bettor: "OffDay", game: "Rams vs Cardinals", bet: "Over 45.5", fadeConfidence: 79, amount: "$290", datePlaced: "2024-01-15 02:45", sport: "NFL" },
-  { id: "14", bettor: "LossLeader", game: "Mavs vs Spurs", bet: "Mavs ML", fadeConfidence: 86, amount: "$380", datePlaced: "2024-01-15 01:20", sport: "NBA" },
-  { id: "15", bettor: "SinkHole", game: "Oilers vs Flames", bet: "Under 6.5", fadeConfidence: 74, amount: "$160", datePlaced: "2024-01-15 00:15", sport: "NHL" },
-  { id: "16", bettor: "TailGater99", game: "Astros vs Angels", bet: "Astros -2.5", fadeConfidence: 83, amount: "$310", datePlaced: "2024-01-14 23:30", sport: "MLB" },
-  { id: "17", bettor: "SharpShooter", game: "Titans vs Jaguars", bet: "Titans +4.5", fadeConfidence: 77, amount: "$240", datePlaced: "2024-01-14 22:45", sport: "NFL" },
-  { id: "18", bettor: "BetKing23", game: "Hawks vs Magic", bet: "Over 220.5", fadeConfidence: 80, amount: "$195", datePlaced: "2024-01-14 21:15", sport: "NBA" },
-];
+const fadedBettors: BetterStat[] = [];
+const coldStreaks: BetterStat[] = [];
+const worstBettors: BetterStat[] = [];
+const allPendingBets: PendingBet[] = [];
 
 export function BettingStats() {
   const [activeTab, setActiveTab] = useState("week");
@@ -80,12 +40,12 @@ export function BettingStats() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Show only top 3 highest confidence bets in the main view
-  const topPendingBets = mockAllPendingBets
+  const topPendingBets = allPendingBets
     .sort((a, b) => b.fadeConfidence - a.fadeConfidence)
     .slice(0, 3);
 
   // Filter bets for the dialog view
-  const filteredBets = mockAllPendingBets.filter(bet => {
+  const filteredBets = allPendingBets.filter(bet => {
     const matchesSearch = bet.bettor.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          bet.game.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          bet.bet.toLowerCase().includes(searchTerm.toLowerCase());
@@ -124,18 +84,24 @@ export function BettingStats() {
                 </Button>
               </div>
               <div className="p-6 space-y-4">
-                {mockFadedBettors.map((better, index) => (
-                  <div key={better.name} className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{better.name}</p>
-                      <p className="text-xs text-stat-small">{better.trend}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-semibold text-stat-big">{better.value}</p>
-                      <p className="text-xs text-stat-small">{better.metric}</p>
-                    </div>
+                {fadedBettors.length === 0 ? (
+                  <div className="text-center py-4">
+                    <p className="text-stat-small">No data available</p>
                   </div>
-                ))}
+                ) : (
+                  fadedBettors.map((better, index) => (
+                    <div key={better.name} className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{better.name}</p>
+                        <p className="text-xs text-stat-small">{better.trend}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-stat-big">{better.value}</p>
+                        <p className="text-xs text-stat-small">{better.metric}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </Card>
 
@@ -148,17 +114,23 @@ export function BettingStats() {
                 </Button>
               </div>
               <div className="p-6 space-y-4">
-                {mockColdStreaks.map((better, index) => (
-                  <div key={better.name} className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{better.name}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-semibold text-destructive">{better.value}</p>
-                      <p className="text-xs text-stat-small">{better.metric}</p>
-                    </div>
+                {coldStreaks.length === 0 ? (
+                  <div className="text-center py-4">
+                    <p className="text-stat-small">No data available</p>
                   </div>
-                ))}
+                ) : (
+                  coldStreaks.map((better, index) => (
+                    <div key={better.name} className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{better.name}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-destructive">{better.value}</p>
+                        <p className="text-xs text-stat-small">{better.metric}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </Card>
 
@@ -171,17 +143,23 @@ export function BettingStats() {
                 </Button>
               </div>
               <div className="p-6 space-y-4">
-                {mockWorstBettors.map((better, index) => (
-                  <div key={better.name} className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{better.name}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm font-semibold text-destructive">{better.value}</p>
-                      <p className="text-xs text-stat-small">{better.metric}</p>
-                    </div>
+                {worstBettors.length === 0 ? (
+                  <div className="text-center py-4">
+                    <p className="text-stat-small">No data available</p>
                   </div>
-                ))}
+                ) : (
+                  worstBettors.map((better, index) => (
+                    <div key={better.name} className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{better.name}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-semibold text-destructive">{better.value}</p>
+                        <p className="text-xs text-stat-small">{better.metric}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </Card>
           </div>
@@ -191,7 +169,7 @@ export function BettingStats() {
             <div className="p-6 border-b border-divider flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-foreground">Pending Bets (Sorted by Fade Confidence)</h3>
-                <p className="text-sm text-stat-small mt-1">Showing {topPendingBets.length} of {mockAllPendingBets.length} pending bets</p>
+                <p className="text-sm text-stat-small mt-1">Showing {topPendingBets.length} of {allPendingBets.length} pending bets</p>
               </div>
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
@@ -201,7 +179,7 @@ export function BettingStats() {
                 </DialogTrigger>
                 <DialogContent className="max-w-6xl max-h-[80vh] overflow-hidden">
                   <DialogHeader>
-                    <DialogTitle>All Pending Bets ({mockAllPendingBets.length})</DialogTitle>
+                    <DialogTitle>All Pending Bets ({allPendingBets.length})</DialogTitle>
                   </DialogHeader>
                   
                   <div className="space-y-4">
@@ -275,25 +253,31 @@ export function BettingStats() {
               </Dialog>
             </div>
             <div className="p-6 space-y-4">
-              {topPendingBets.map((bet) => (
-                <div key={bet.id} className="flex items-center justify-between p-4 bg-muted rounded-lg hover:bg-hover-bg transition-colors">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-sm font-medium text-foreground">{bet.bettor}</span>
-                      <Badge 
-                        variant={getConfidenceBadgeVariant(bet.fadeConfidence)}
-                        className="text-xs"
-                      >
-                        {bet.fadeConfidence}% fade confidence
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-stat-small">{bet.game} • {bet.bet}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-semibold text-foreground">{bet.amount}</p>
-                  </div>
+              {topPendingBets.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-stat-small">No pending bets</p>
                 </div>
-              ))}
+              ) : (
+                topPendingBets.map((bet) => (
+                  <div key={bet.id} className="flex items-center justify-between p-4 bg-muted rounded-lg hover:bg-hover-bg transition-colors">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-sm font-medium text-foreground">{bet.bettor}</span>
+                        <Badge 
+                          variant={getConfidenceBadgeVariant(bet.fadeConfidence)}
+                          className="text-xs"
+                        >
+                          {bet.fadeConfidence}% fade confidence
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-stat-small">{bet.game} • {bet.bet}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-semibold text-foreground">{bet.amount}</p>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </Card>
         </TabsContent>

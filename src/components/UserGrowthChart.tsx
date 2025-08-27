@@ -9,48 +9,17 @@ interface UserGrowthData {
   date: string;
 }
 
-const mockUserData: Record<string, UserGrowthData[]> = {
-  day: [
-    { period: "00:00", users: 2847, date: "Today" },
-    { period: "04:00", users: 2851, date: "Today" },
-    { period: "08:00", users: 2863, date: "Today" },
-    { period: "12:00", users: 2879, date: "Today" },
-    { period: "16:00", users: 2894, date: "Today" },
-    { period: "20:00", users: 2908, date: "Today" },
-    { period: "24:00", users: 2915, date: "Today" },
-  ],
-  week: [
-    { period: "Mon", users: 2765, date: "Jan 15" },
-    { period: "Tue", users: 2789, date: "Jan 16" },
-    { period: "Wed", users: 2812, date: "Jan 17" },
-    { period: "Thu", users: 2834, date: "Jan 18" },
-    { period: "Fri", users: 2856, date: "Jan 19" },
-    { period: "Sat", users: 2881, date: "Jan 20" },
-    { period: "Sun", users: 2915, date: "Jan 21" },
-  ],
-  month: [
-    { period: "Week 1", users: 2456, date: "Jan 1-7" },
-    { period: "Week 2", users: 2578, date: "Jan 8-14" },
-    { period: "Week 3", users: 2723, date: "Jan 15-21" },
-    { period: "Week 4", users: 2915, date: "Jan 22-28" },
-  ],
-  year: [
-    { period: "Q1", users: 1850, date: "Jan-Mar 2023" },
-    { period: "Q2", users: 2150, date: "Apr-Jun 2023" },
-    { period: "Q3", users: 2480, date: "Jul-Sep 2023" },
-    { period: "Q4", users: 2915, date: "Oct-Dec 2023" },
-  ],
-  "all-time": [
-    { period: "2020", users: 245, date: "2020" },
-    { period: "2021", users: 892, date: "2021" },
-    { period: "2022", users: 1456, date: "2022" },
-    { period: "2023", users: 2915, date: "2023" },
-  ],
+const userData: Record<string, UserGrowthData[]> = {
+  day: [{ period: "Today", users: 0, date: "Today" }],
+  week: [{ period: "This Week", users: 0, date: "This Week" }],
+  month: [{ period: "This Month", users: 0, date: "This Month" }],
+  year: [{ period: "This Year", users: 0, date: "This Year" }],
+  "all-time": [{ period: "All Time", users: 0, date: "All Time" }],
 };
 
 export function UserGrowthChart() {
   const [selectedPeriod, setSelectedPeriod] = useState("all-time");
-  const data = mockUserData[selectedPeriod];
+  const data = userData[selectedPeriod];
 
   const currentValue = data[data.length - 1]?.users || 0;
   const previousValue = data[data.length - 2]?.users || 0;
