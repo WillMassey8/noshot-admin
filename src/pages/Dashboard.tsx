@@ -28,7 +28,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-semibold text-foreground mb-2">
-              {getGreeting()}, Will
+              {getGreeting()}, Admin
             </h1>
             <p className="text-muted-foreground">
               Welcome to your NoShot admin dashboard. Here's what's happening today.
@@ -45,24 +45,24 @@ const Dashboard = () => {
       <div className="grid md:grid-cols-3 gap-8">
         <StatCard
           title="Total Users"
-          value="2,847"
-          trend={{ value: "12%", isPositive: true }}
+          value="0"
+          trend={{ value: "0%", isPositive: true }}
           subtitle="All time"
           icon={Users}
           accentColor="blue"
         />
         <StatCard
           title="New Users This Week"
-          value="156"
-          trend={{ value: "8%", isPositive: true }}
-          subtitle="Jan 15-22, 2024"
+          value="0"
+          trend={{ value: "0%", isPositive: true }}
+          subtitle="This week"
           icon={UserPlus}
           accentColor="green"
         />
         <StatCard
           title="Monthly Churn Rate"
-          value="2.3%"
-          trend={{ value: "0.8%", isPositive: false }}
+          value="0%"
+          trend={{ value: "0%", isPositive: true }}
           subtitle="Users who cancelled this month"
           icon={TrendingDown}
           accentColor="red"
